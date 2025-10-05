@@ -5,7 +5,9 @@ i.e 12345_meow_2.jpg
 import os
 from pathlib import Path
 import shutil
+import time
 
+start = time.perf_counter()
 rootInput = input('Enter the desired path:')
 
 root = Path(rootInput).expanduser().resolve()
@@ -51,7 +53,16 @@ def patoOrganizer(path):
     
     except OSError as e:
         print('OSError:', e)
+
+    # time tracking
+    end = time.perf_counter()
+    elapsed = (end - start)
+    timeH = elapsed / 3600
+    timeM = elapsed / 60
+    timeS = elapsed % 60
+    
     
     print(f"Operation Complete. {moved} files moved, {skipped} files skipped, {failed} files failed.")
-
+    print(f"Ran for {timeH:2.0f} hours, {timeM:2.0f} minutes, {timeS:2.2f} seconds.")
+    
 patoOrganizer(root)
